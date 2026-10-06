@@ -26,9 +26,8 @@ public class Alumno {
         this.activo = activo;
     }
      
-     public Alumno(){
-         
-     }
+     public Alumno() {
+    }
 
     public int getId() {
         return id;
