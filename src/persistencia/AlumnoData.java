@@ -38,6 +38,28 @@ public class AlumnoData {
         }
     }
 
+    public Alumno buscarAlumno(int id) {
+        Alumno a = null;
+        String sql = "SELECT * FROM alumno WHERE idAlumno = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                a = new Alumno();
+                a.setId(rs.getInt("idAlumno"));
+                a.setDni(rs.getInt("dni"));
+                a.setNombre(rs.getString("nombre"));
+                a.setFechaNac(rs.getDate("fechaNac").toLocalDate());
+                a.setActivo(rs.getBoolean("activo"));
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            System.out.println("No pude buscar: " + ex.getMessage());
+        }
+        return a;
+    }
+
     public List<Alumno> listarAlumnos() {
         List<Alumno> alumnos = new ArrayList<>();
         String query = "SELECT * FROM alumno";
