@@ -25,6 +25,10 @@ public class Alumno {
         this.fechaNac = fechaNac;
         this.activo = activo;
     }
+     
+     public Alumno(){
+         
+     }
 
     public int getId() {
         return id;
