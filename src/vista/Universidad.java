@@ -1,5 +1,5 @@
 
-package vistas;
+package vista;
 
 public class Universidad {
 
