@@ -1,5 +1,5 @@
 
-package entidades;
+package modelo;
 
 import java.time.LocalDate;
 
@@ -11,7 +11,7 @@ public class Alumno {
     private boolean activo;  //TINYINT
     
      public Alumno( int id,int dni, String nombre, LocalDate fechaNac, boolean activo) {
-        this.id= -1;
+        this.id= id;
         this.dni = dni;
         this.nombre = nombre;
         this.fechaNac = fechaNac;

@@ -5,14 +5,14 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class Miconexion {
+public class conexion {
      private String url;
      private String usuario;
      private String password;
      
  private static Connection conexion= null;
 
-    public Miconexion(String url, String usuario, String password) {
+    public conexion(String url, String usuario, String password) {
         this.url = url;
         this.usuario = usuario;
         this.password = password;
