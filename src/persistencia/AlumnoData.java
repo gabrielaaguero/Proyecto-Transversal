@@ -8,6 +8,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import modelo.Alumno;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class AlumnoData {
     private Connection con = null;
@@ -81,4 +83,53 @@ public class AlumnoData {
         }
         return alumnos;
     }
+    
+    public void actualizarAlumno(Alumno a){
+        String query = "UPDATE alumno SET nombre = ?, dni = ?, fechaNac = ?, activo = ? WHERE idAlumno = ?";  //1
+        
+        try {
+            PreparedStatement ps = con.prepareStatement(query); 
+            ps.setString(1, a.getNombre());
+            ps.setInt(2, a.getDni());
+            ps.setDate(3, java.sql.Date.valueOf(a.getFechaNac()));
+            ps.setBoolean(4, a.isActivo());
+            ps.setInt(5, a.getId());
+            ps.executeUpdate();
+                       
+            ps.close();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+      
+    }
+    
+    public void borrarAlumno(int id){
+        String query = "DELETE FROM alumno WHERE idAlumno = ?";
+        
+        try {
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, id);
+            ps.executeUpdate();
+            
+            ps.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void eliminadoLogicoAlumno(int id){
+        String query = "UPDATE alumno SET activo = 0 WHERE idAlumno = ?";
+        
+        try {
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, id);
+            ps.executeUpdate();
+            
+            ps.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
 }
