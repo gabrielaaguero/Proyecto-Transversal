@@ -25,9 +25,7 @@ public class conexion {
         
     }
     
-    
- 
- public Connection buscarConexion(){
+    public Connection buscarConexion(){
      if (conexion == null) {
             try {
                 try {
@@ -36,7 +34,7 @@ public class conexion {
                     Class.forName("com.mysql.jdbc.Driver");
                 }
                 conexion = DriverManager.getConnection(url, usuario, password);
-                System.out.println("Conexión OK a " + url);
+                System.out.println("Conexion OK a " + url);
             } catch (SQLException | ClassNotFoundException e) {
                 System.out.println("no se puede conectar el driver. Error:" + e.getMessage());
             }
@@ -44,6 +42,7 @@ public class conexion {
         return conexion;
  }
 }
+
 
 
 
