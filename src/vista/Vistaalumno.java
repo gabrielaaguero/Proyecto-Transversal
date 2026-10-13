@@ -63,6 +63,7 @@ public class Vistaalumno extends javax.swing.JInternalFrame {
         jButtonEliminar.setText("Eliminar");
         jButtonEliminar.addActionListener(this::jButtonEliminarActionPerformed);
 
+        jButtonBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/buscar.png"))); // NOI18N
         jButtonBuscar.setText("Buscar");
         jButtonBuscar.addActionListener(this::jButtonBuscarActionPerformed);
 
