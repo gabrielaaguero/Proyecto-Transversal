@@ -39,6 +39,7 @@ public class Ventanaprincipal extends javax.swing.JFrame {
         jMenuItemInscripcion = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItemNotas = new javax.swing.JMenuItem();
+        jMenuItemListInscr = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -85,6 +86,10 @@ public class Ventanaprincipal extends javax.swing.JFrame {
         jMenuItemNotas.addActionListener(this::jMenuItemNotasActionPerformed);
         jMenu2.add(jMenuItemNotas);
 
+        jMenuItemListInscr.setText("Lista de inscripciones");
+        jMenuItemListInscr.addActionListener(this::jMenuItemListInscrActionPerformed);
+        jMenu2.add(jMenuItemListInscr);
+
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -122,6 +127,10 @@ public class Ventanaprincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItemNotasActionPerformed
 
+    private void jMenuItemListInscrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemListInscrActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItemListInscrActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -155,6 +164,7 @@ public class Ventanaprincipal extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItemAlumnos;
     private javax.swing.JMenuItem jMenuItemInscripcion;
+    private javax.swing.JMenuItem jMenuItemListInscr;
     private javax.swing.JMenuItem jMenuItemMaterias;
     private javax.swing.JMenuItem jMenuItemNotas;
     private javax.swing.JMenu jMenuMaterias;
