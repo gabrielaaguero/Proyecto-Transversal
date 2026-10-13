@@ -4,10 +4,6 @@
  */
 package vista;
 
-/**
- *
- * @author NoxiePC
- */
 public class Vistaalumno extends javax.swing.JInternalFrame {
 
     /**
@@ -34,13 +30,13 @@ public class Vistaalumno extends javax.swing.JInternalFrame {
         jButtonNuevo = new javax.swing.JButton();
         jButtonGuardar = new javax.swing.JButton();
         jButtonEliminar = new javax.swing.JButton();
-        jButtonSalir = new javax.swing.JButton();
         jTxtDocumento = new javax.swing.JTextField();
         jTxtNombre = new javax.swing.JTextField();
         jDatecFecNac = new com.toedter.calendar.JDateChooser();
         jButtonBuscar = new javax.swing.JButton();
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
+        jBtnSalir = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -67,15 +63,15 @@ public class Vistaalumno extends javax.swing.JInternalFrame {
         jButtonEliminar.setText("Eliminar");
         jButtonEliminar.addActionListener(this::jButtonEliminarActionPerformed);
 
-        jButtonSalir.setText("Salir");
-        jButtonSalir.addActionListener(this::jButtonSalirActionPerformed);
-
         jButtonBuscar.setText("Buscar");
         jButtonBuscar.addActionListener(this::jButtonBuscarActionPerformed);
 
         jRadioButton1.setText("Activo");
 
         jRadioButton2.setText("Inactivo");
+
+        jBtnSalir.setText("Salir");
+        jBtnSalir.addActionListener(this::jBtnSalirActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -98,16 +94,16 @@ public class Vistaalumno extends javax.swing.JInternalFrame {
                                         .addComponent(jButtonNuevo)
                                         .addGap(18, 18, 18)
                                         .addComponent(jButtonGuardar)))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addGap(38, 38, 38)
+                                        .addComponent(jRadioButton2)
+                                        .addGap(78, 78, 78))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(18, 18, 18)
                                         .addComponent(jButtonEliminar)
                                         .addGap(18, 18, 18)
-                                        .addComponent(jButtonSalir))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jRadioButton2)
-                                        .addGap(78, 78, 78)))))
+                                        .addComponent(jBtnSalir)))))
                         .addGap(0, 27, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
@@ -165,7 +161,7 @@ public class Vistaalumno extends javax.swing.JInternalFrame {
                     .addComponent(jButtonNuevo)
                     .addComponent(jButtonGuardar)
                     .addComponent(jButtonEliminar)
-                    .addComponent(jButtonSalir))
+                    .addComponent(jBtnSalir))
                 .addGap(20, 20, 20))
         );
 
@@ -184,21 +180,21 @@ public class Vistaalumno extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
-    private void jButtonSalirActionPerformedjTxtDocumentovent.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonSalirActionPerformed
-
     private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonBuscarActionPerformed
 
+    private void jBtnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSalirActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBtnSalirActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBtnSalir;
     private javax.swing.JButton jButtonBuscar;
     private javax.swing.JButton jButtonEliminar;
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JButton jButtonNuevo;
-    private javax.swing.JButton jButtonSalir;
     private com.toedter.calendar.JDateChooser jDatecFecNac;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
