@@ -5,6 +5,9 @@ public class Materia {
     private int idMateria;
     private String nombre;
     private boolean estado;
+    
+    public Materia(){
+    }
 
     public Materia(String nombre, boolean estado) {
         this.nombre = nombre;
@@ -47,4 +50,5 @@ public class Materia {
     }
     
 }
+
 
