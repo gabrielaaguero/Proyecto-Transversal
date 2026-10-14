@@ -3,7 +3,9 @@ package vista;
 import java.time.LocalDate;
 import java.util.List;
 import modelo.Alumno;
+import modelo.Materia;
 import persistencia.AlumnoData;
+import persistencia.MateriaData;
 import persistencia.conexion;
 
 public class Universidad {
@@ -23,7 +25,16 @@ public class Universidad {
             System.out.println(a.getId() + " - " + a.getDni() + " - " + a.getNombre()
                     + " - " + a.getFechaNac() + " - activo=" + a.isActivo());
         }
+        MateriaData md= new MateriaData(c);
+        md.guardarMateria(new Materia("Laboratorio", true));
+        for(Materia m: md.listarMateria()) {
+            System.out.println(m.getIdMateria() + " - " + m.getNombre() + " - " + m.isEstado());
+        }
     }
-
 }
+
+
+
+
+
 
