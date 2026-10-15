@@ -23,6 +23,11 @@ public class Universidad {
             System.out.println(a.getId() + " - " + a.getDni() + " - " + a.getNombre()
                     + " - " + a.getFechaNac() + " - activo=" + a.isActivo());
         }
+        
+        Ventanaprincipal pantalla = new Ventanaprincipal ();
+        pantalla.setVisible(true);
+        pantalla.setLocationRelativeTo(null);
+        
     }
 
 }

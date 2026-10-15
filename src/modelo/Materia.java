@@ -16,6 +16,10 @@ public class Materia {
         this.nombre = nombre;
         this.estado = estado;
     }
+    
+    public Materia (){
+        
+    }
 
     public int getIdMateria() {
         return idMateria;

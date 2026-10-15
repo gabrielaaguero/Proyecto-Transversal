@@ -29,6 +29,10 @@ public class Cursada {
         this.asist = asist;
         this.cursa = cursa;
     }
+    
+    public Cursada (){
+        
+    }
 
     public int getIdCursada() {
         return idCursada;
