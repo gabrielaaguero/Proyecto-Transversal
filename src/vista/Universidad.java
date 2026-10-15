@@ -25,6 +25,11 @@ public class Universidad {
             System.out.println(a.getId() + " - " + a.getDni() + " - " + a.getNombre()
                     + " - " + a.getFechaNac() + " - activo=" + a.isActivo());
         }
+        
+        Ventanaprincipal pantalla = new Ventanaprincipal ();
+        pantalla.setVisible(true);
+        pantalla.setLocationRelativeTo(null);
+        
         MateriaData md= new MateriaData(c);
         md.guardarMateria(new Materia("Laboratorio", true));
         for(Materia m: md.listarMateria()) {
