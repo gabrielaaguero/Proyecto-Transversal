@@ -72,7 +72,6 @@ public class Vistamateria extends javax.swing.JInternalFrame {
         jBtnSalir.setText("Salir");
         jBtnSalir.addActionListener(this::jBtnSalirActionPerformed);
 
-        jBtnBuscarMaterias.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/buscar.png"))); // NOI18N
         jBtnBuscarMaterias.setText("Buscar");
         jBtnBuscarMaterias.addActionListener(this::jBtnBuscarMateriasActionPerformed);
 

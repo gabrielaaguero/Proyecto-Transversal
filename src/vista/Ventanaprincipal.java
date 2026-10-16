@@ -57,6 +57,7 @@ public class Ventanaprincipal extends javax.swing.JFrame {
         );
 
         jMenuAlumnos.setText("Alumnos");
+        jMenuAlumnos.addActionListener(this::jMenuAlumnosActionPerformed);
 
         jMenuItemAlumnos.setText("Formularios de alumnos");
         jMenuItemAlumnos.addActionListener(this::jMenuItemAlumnosActionPerformed);
@@ -112,24 +113,48 @@ public class Ventanaprincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItemAlumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemAlumnosActionPerformed
-
+        jDesktopPane1.removeAll();
+        jDesktopPane1.repaint();
+        Vistaalumno ventanaAlumno = new Vistaalumno();
+        ventanaAlumno.setVisible(true);
+        jDesktopPane1.add(ventanaAlumno);
     }//GEN-LAST:event_jMenuItemAlumnosActionPerformed
 
     private void jMenuItemMateriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemMateriasActionPerformed
-        // TODO add your handling code here:
+        jDesktopPane1.removeAll();
+        jDesktopPane1.repaint();
+        Vistamateria ventanaMateria = new Vistamateria();
+        ventanaMateria.setVisible(true);
+        jDesktopPane1.add(ventanaMateria);
     }//GEN-LAST:event_jMenuItemMateriasActionPerformed
 
     private void jMenuItemInscripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemInscripcionActionPerformed
-        // TODO add your handling code here:
+        jDesktopPane1.removeAll();
+        jDesktopPane1.repaint();
+        Vistainscripcion ventanaInscripcion = new Vistainscripcion();
+        ventanaInscripcion.setVisible(true);
+        jDesktopPane1.add(ventanaInscripcion);
     }//GEN-LAST:event_jMenuItemInscripcionActionPerformed
 
     private void jMenuItemNotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemNotasActionPerformed
-        // TODO add your handling code here:
+        jDesktopPane1.removeAll();
+        jDesktopPane1.repaint();
+        Vistanotas ventanaNotas = new Vistanotas();
+        ventanaNotas.setVisible(true);
+        jDesktopPane1.add(ventanaNotas);
     }//GEN-LAST:event_jMenuItemNotasActionPerformed
 
     private void jMenuItemListInscrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemListInscrActionPerformed
-        // TODO add your handling code here:
+        jDesktopPane1.removeAll();
+        jDesktopPane1.repaint();
+        VistaListarInscripciones ventanaListaInscripciones = new VistaListarInscripciones();
+        ventanaListaInscripciones.setVisible(true);
+        jDesktopPane1.add(ventanaListaInscripciones);
     }//GEN-LAST:event_jMenuItemListInscrActionPerformed
+
+    private void jMenuAlumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuAlumnosActionPerformed
+        
+    }//GEN-LAST:event_jMenuAlumnosActionPerformed
 
     /**
      * @param args the command line arguments

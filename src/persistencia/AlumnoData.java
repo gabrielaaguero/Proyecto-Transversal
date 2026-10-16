@@ -12,42 +12,53 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class AlumnoData {
+
     private Connection con = null;
 
     public AlumnoData(conexion conexion) {
         this.con = conexion.buscarConexion();
     }
 
-    public void guardarAlumno(Alumno a) {
-        String sql = "INSERT INTO alumno(dni, nombre, fechaNac, activo) VALUES (?,?,?,?)";
-        try {
-            PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, a.getDni());
-            ps.setString(2, a.getNombre());
-            ps.setDate(3, java.sql.Date.valueOf(a.getFechaNac()));
-            ps.setBoolean(4, a.isActivo());
-            ps.executeUpdate();
+    public void guardarAlumno(Alumno a) throws SQLException {
+        String sqlVerificar = "SELECT * FROM alumno WHERE dni = ?";
+        String sqlInsertar = "INSERT INTO alumno(dni, nombre, fechaNac, activo) VALUES (?,?,?,?)";
 
-            ResultSet rs = ps.getGeneratedKeys();
-            if (rs.next()) {
-                a.setId(rs.getInt(1));
-            } else {
-                System.out.println("No se pudo obtener ID");
-            }
-            ps.close();
-        } catch (SQLException ex) {
-            System.out.println("No pude insertar: " + ex.getMessage());
+        PreparedStatement psVerificar = con.prepareStatement(sqlVerificar);
+        psVerificar.setInt(1, a.getDni());
+        ResultSet rsVerificar = psVerificar.executeQuery();
+
+        if (rsVerificar.next()) {
+            rsVerificar.close();
+            psVerificar.close();
+            throw new SQLException("Ya existe un alumno registrado con ese DNI.");
         }
+        rsVerificar.close();
+        psVerificar.close();
+
+        PreparedStatement ps = con.prepareStatement(sqlInsertar, Statement.RETURN_GENERATED_KEYS);
+        ps.setInt(1, a.getDni());
+        ps.setString(2, a.getNombre());
+        ps.setDate(3, java.sql.Date.valueOf(a.getFechaNac()));
+        ps.setBoolean(4, a.isActivo());
+        ps.executeUpdate();
+
+        ResultSet rs = ps.getGeneratedKeys();
+        if (rs.next()) {
+            a.setId(rs.getInt(1));
+        } else {
+            System.out.println("No se pudo obtener ID");
+        }
+        ps.close();
     }
 
-    public Alumno buscarAlumno(int id) {
+    public Alumno buscarAlumno(int dni) {
         Alumno a = null;
-        String sql = "SELECT * FROM alumno WHERE idAlumno = ?";
+        String sql = "SELECT * FROM alumno WHERE dni = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, id);
+            ps.setInt(1, dni);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
+            if (rs.next()) {
                 a = new Alumno();
                 a.setId(rs.getInt("idAlumno"));
                 a.setDni(rs.getInt("dni"));
@@ -83,53 +94,53 @@ public class AlumnoData {
         }
         return alumnos;
     }
-    
-    public void actualizarAlumno(Alumno a){
+
+    public void actualizarAlumno(Alumno a) {
         String query = "UPDATE alumno SET nombre = ?, dni = ?, fechaNac = ?, activo = ? WHERE idAlumno = ?";  //1
-        
+
         try {
-            PreparedStatement ps = con.prepareStatement(query); 
+            PreparedStatement ps = con.prepareStatement(query);
             ps.setString(1, a.getNombre());
             ps.setInt(2, a.getDni());
             ps.setDate(3, java.sql.Date.valueOf(a.getFechaNac()));
             ps.setBoolean(4, a.isActivo());
             ps.setInt(5, a.getId());
             ps.executeUpdate();
-                       
+
             ps.close();
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
         }
-      
+
     }
-    
-    public void borrarAlumno(int id){
+
+    public void borrarAlumno(int id) {
         String query = "DELETE FROM alumno WHERE idAlumno = ?";
-        
+
         try {
             PreparedStatement ps = con.prepareStatement(query);
             ps.setInt(1, id);
             ps.executeUpdate();
-            
+
             ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void eliminadoLogicoAlumno(int id){
+
+    public void eliminadoLogicoAlumno(int id) {
         String query = "UPDATE alumno SET activo = 0 WHERE idAlumno = ?";
-        
+
         try {
             PreparedStatement ps = con.prepareStatement(query);
             ps.setInt(1, id);
             ps.executeUpdate();
-            
+
             ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
 }
