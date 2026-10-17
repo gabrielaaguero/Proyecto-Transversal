@@ -32,14 +32,16 @@ public class MateriaData {
             System.out.println("no pude guardar la materia:" + e.getMessage());
         }
     }
-    public void actualizarMateria(Materia materia) {
+    public boolean actualizarMateria(Materia materia) {
         String sql= "UPDATE materia SET nombre= ?, estado= ? WHERE idMateria= ?";
+        boolean actualizado = false;
         try {
              PreparedStatement ps= con.prepareStatement(sql);
              ps.setString(1, materia.getNombre());
              ps.setBoolean(2, materia.isEstado());
              ps.setInt(3, materia.getIdMateria());
              if( ps.executeUpdate()== 1){
+                 actualizado = true;
                  System.out.println("materia actualizada");
              } else {
                  System.out.println("no existe la materia");
@@ -48,6 +50,7 @@ public class MateriaData {
         } catch (SQLException e){
             System.out.println("no pude actualizar la materia" + e.getMessage());
         }
+        return actualizado;
     }
     public void borrarMateria(int id){
         String sql = "DELETE FROM materia WHERE idMateria= ?";

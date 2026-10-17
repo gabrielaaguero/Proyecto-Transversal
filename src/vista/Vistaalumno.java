@@ -253,17 +253,36 @@ public class Vistaalumno extends javax.swing.JInternalFrame {
                 return;
             }
 
-            Alumno nuevoAlumno = new Alumno();
-            nuevoAlumno.setDni(dni);
-            nuevoAlumno.setNombre(nombre);
-            nuevoAlumno.setFechaNac(fechaNac);
-            nuevoAlumno.setActivo(activo);
-
             conexion con = new conexion();
             AlumnoData alumnoData = new AlumnoData(con);
-            alumnoData.guardarAlumno(nuevoAlumno);
 
-            javax.swing.JOptionPane.showMessageDialog(this, "Alumno guardado correctamente");
+            Alumno alumnoExiste = alumnoData.buscarAlumno(dni);
+
+            if (alumnoExiste == null) {
+                Alumno nuevoAlumno = new Alumno();
+                nuevoAlumno.setDni(dni);
+                nuevoAlumno.setNombre(nombre);
+                nuevoAlumno.setFechaNac(fechaNac);
+                nuevoAlumno.setActivo(activo);
+
+                alumnoData.guardarAlumno(nuevoAlumno);
+                javax.swing.JOptionPane.showMessageDialog(this, "Alumno guardado correctamente");
+                limpiarCampos();
+            } else {
+                alumnoExiste.setNombre(nombre);
+                alumnoExiste.setFechaNac(fechaNac);
+                alumnoExiste.setActivo(activo);
+                
+                boolean actualizo = alumnoData.actualizarAlumno(alumnoExiste);
+                
+                if (actualizo){
+                    javax.swing.JOptionPane.showMessageDialog(this, "Informacion de alumno actualizada correctamente");
+                    limpiarCampos();
+                } else {
+                    javax.swing.JOptionPane.showMessageDialog(this, "No se pudo actualizar alumno");
+                }
+            }
+            
             limpiarCampos();
 
         } catch (NumberFormatException ex) {
@@ -279,11 +298,11 @@ public class Vistaalumno extends javax.swing.JInternalFrame {
             conexion con = new conexion();
             AlumnoData alumnoData = new AlumnoData(con);
             Alumno alumno = alumnoData.buscarAlumno(dni);
-            
-            if (alumno != null){
-                int confirmar = javax.swing.JOptionPane.showConfirmDialog(this, "Seguro que desea eliminar a " + alumno.getNombre() + " de la base de datos?", "Confirmar eliminacion", javax.swing.JOptionPane.YES_NO_OPTION);
-                
-                if (confirmar == javax.swing.JOptionPane.YES_OPTION){
+
+            if (alumno != null) {
+                int confirmar = javax.swing.JOptionPane.showConfirmDialog(this, "Seguro que desea eliminar a " + alumno.getNombre() + " de la base de datos?", "Confirmar eliminacion", javax.swing.JOptionPane.YES_NO_CANCEL_OPTION);
+
+                if (confirmar == javax.swing.JOptionPane.YES_OPTION) {
                     alumnoData.borrarAlumno(alumno.getId());
                     limpiarCampos();
                     jButtonEliminar.setEnabled(false);
@@ -291,7 +310,7 @@ public class Vistaalumno extends javax.swing.JInternalFrame {
             } else {
                 javax.swing.JOptionPane.showMessageDialog(this, "No se encontro el alumno a eliminar");
             }
-        } catch (NumberFormatException ex){
+        } catch (NumberFormatException ex) {
             javax.swing.JOptionPane.showMessageDialog(this, "Numero de documento invalido");
         } catch (Exception ex) {
             javax.swing.JOptionPane.showMessageDialog(this, "Se ha producido un error " + ex.getMessage());
