@@ -95,7 +95,7 @@ public class AlumnoData {
         return alumnos;
     }
 
-    public void actualizarAlumno(Alumno a) {
+    public boolean actualizarAlumno(Alumno a) {
         String query = "UPDATE alumno SET nombre = ?, dni = ?, fechaNac = ?, activo = ? WHERE idAlumno = ?";  //1
 
         try {
@@ -105,14 +105,22 @@ public class AlumnoData {
             ps.setDate(3, java.sql.Date.valueOf(a.getFechaNac()));
             ps.setBoolean(4, a.isActivo());
             ps.setInt(5, a.getId());
-            ps.executeUpdate();
-
+           
+            int cambiosEnFilas = ps.executeUpdate();
             ps.close();
+            
+            if (cambiosEnFilas > 0){
+                System.out.println("Informacion de alumno actualizada correctamente");
+                return true;
+            } else {
+                System.out.println("No se encontro ningun alumno");
+                return false;
+            }
 
         } catch (SQLException ex) {
             Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
-
     }
 
     public void borrarAlumno(int id) {
