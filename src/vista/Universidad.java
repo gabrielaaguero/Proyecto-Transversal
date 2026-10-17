@@ -1,6 +1,5 @@
 package vista;
 
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 import modelo.Alumno;
@@ -21,7 +20,7 @@ public class Universidad {
                 ad.guardarAlumno(new Alumno(40222333, "Gonzalo", LocalDate.of(2001, 5, 20), true));
                 ad.guardarAlumno(new Alumno(40333444, "Martina", LocalDate.of(1999, 11, 30), true));
             } catch (Exception e) {
-                System.out.println("Aviso: Algunos alumnos ya estaban registrados. Continuando...");
+                System.out.println("Aviso: Algunos alumnos ya estaban registrados en la base de datos.");
             }
 
             List<Alumno> lista = ad.listarAlumnos();
@@ -39,7 +38,7 @@ public class Universidad {
             try {
                 md.guardarMateria(new Materia("Laboratorio", true));
             } catch (Exception e) {
-                System.out.println("Aviso: La materia ya podría existir.");
+                System.out.println("Aviso: La materia ya podria existir.");
             }
 
             for (Materia m : md.listarMateria()) {

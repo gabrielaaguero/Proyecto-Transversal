@@ -274,7 +274,28 @@ public class Vistaalumno extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
-        // TODO add your handling code here:
+        try {
+            int dni = Integer.parseInt(jTxtDocumento.getText().trim());
+            conexion con = new conexion();
+            AlumnoData alumnoData = new AlumnoData(con);
+            Alumno alumno = alumnoData.buscarAlumno(dni);
+            
+            if (alumno != null){
+                int confirmar = javax.swing.JOptionPane.showConfirmDialog(this, "Seguro que desea eliminar a " + alumno.getNombre() + " de la base de datos?", "Confirmar eliminacion", javax.swing.JOptionPane.YES_NO_OPTION);
+                
+                if (confirmar == javax.swing.JOptionPane.YES_OPTION){
+                    alumnoData.borrarAlumno(alumno.getId());
+                    limpiarCampos();
+                    jButtonEliminar.setEnabled(false);
+                }
+            } else {
+                javax.swing.JOptionPane.showMessageDialog(this, "No se encontro el alumno a eliminar");
+            }
+        } catch (NumberFormatException ex){
+            javax.swing.JOptionPane.showMessageDialog(this, "Numero de documento invalido");
+        } catch (Exception ex) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Se ha producido un error " + ex.getMessage());
+        }
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
     private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
@@ -311,7 +332,7 @@ public class Vistaalumno extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonBuscarActionPerformed
 
     private void jBtnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSalirActionPerformed
-        // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_jBtnSalirActionPerformed
 
 
