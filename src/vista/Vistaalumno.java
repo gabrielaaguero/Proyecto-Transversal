@@ -107,7 +107,7 @@ public class Vistaalumno extends javax.swing.JInternalFrame {
 
         jLabel4.setText("Nombre:");
 
-        jLabel5.setText("Fecha de Nascimiento:");
+        jLabel5.setText("Fecha de Nacimiento:");
 
         jLabel6.setText("Estado:");
 
@@ -120,6 +120,7 @@ public class Vistaalumno extends javax.swing.JInternalFrame {
         jButtonEliminar.setText("Eliminar");
         jButtonEliminar.addActionListener(this::jButtonEliminarActionPerformed);
 
+        jButtonBuscar.setIcon(new javax.swing.ImageIcon("C:\\Users\\JuanS\\OneDrive\\Documentos\\GitHub\\Proyecto-Transversal\\src\\iconos\\buscar.png")); // NOI18N
         jButtonBuscar.setText("Buscar");
         jButtonBuscar.addActionListener(this::jButtonBuscarActionPerformed);
 
@@ -229,6 +230,7 @@ public class Vistaalumno extends javax.swing.JInternalFrame {
 
     private void jButtonLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimpiarActionPerformed
         limpiarCampos();
+        jButtonEliminar.setEnabled(false);
     }//GEN-LAST:event_jButtonLimpiarActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
@@ -241,6 +243,12 @@ public class Vistaalumno extends javax.swing.JInternalFrame {
                 return;
             }
             java.time.LocalDate fechaNac = fecha.toInstant().atZone(java.time.ZoneId.systemDefault()).toLocalDate();
+
+            int edad = java.time.Period.between(fechaNac, java.time.LocalDate.now()).getYears();
+            if (edad < 18) {
+                javax.swing.JOptionPane.showMessageDialog(this, "El alumno debe tener una edad mayor o igual a 18 años.", "Menor de edad", javax.swing.JOptionPane.WARNING_MESSAGE);
+                return;
+            }
 
             boolean activo = false;
 
@@ -272,18 +280,20 @@ public class Vistaalumno extends javax.swing.JInternalFrame {
                 alumnoExiste.setNombre(nombre);
                 alumnoExiste.setFechaNac(fechaNac);
                 alumnoExiste.setActivo(activo);
-                
+
                 boolean actualizo = alumnoData.actualizarAlumno(alumnoExiste);
-                
-                if (actualizo){
+
+                if (actualizo) {
                     javax.swing.JOptionPane.showMessageDialog(this, "Informacion de alumno actualizada correctamente");
                     limpiarCampos();
+                    jButtonEliminar.setEnabled(false);
                 } else {
                     javax.swing.JOptionPane.showMessageDialog(this, "No se pudo actualizar alumno");
                 }
             }
-            
+
             limpiarCampos();
+            jButtonEliminar.setEnabled(false);
 
         } catch (NumberFormatException ex) {
             javax.swing.JOptionPane.showMessageDialog(this, "Por favor, ingrese un numero de documento valido");

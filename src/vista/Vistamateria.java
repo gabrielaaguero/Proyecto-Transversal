@@ -1,20 +1,17 @@
-
 package vista;
 
 import modelo.Materia;
 import persistencia.MateriaData;
 import persistencia.conexion;
 
-
 public class Vistamateria extends javax.swing.JInternalFrame {
 
-    
     public Vistamateria() {
         initComponents();
         jBtnGuardar.setEnabled(false);
         jBtnEliminar.setEnabled(false);
-        
-         javax.swing.event.DocumentListener validadorListener = new javax.swing.event.DocumentListener() {
+
+        javax.swing.event.DocumentListener validadorListener = new javax.swing.event.DocumentListener() {
             @Override
             public void insertUpdate(javax.swing.event.DocumentEvent e) {
                 validarCampos();
@@ -30,32 +27,33 @@ public class Vistamateria extends javax.swing.JInternalFrame {
                 validarCampos();
             }
         };
-         jtxtNombre.getDocument().addDocumentListener(validadorListener);
-         
-         java.awt.event.ActionListener radioListener = new java.awt.event.ActionListener() {
+        jtxtNombre.getDocument().addDocumentListener(validadorListener);
+
+        java.awt.event.ActionListener radioListener = new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent e) {
                 validarCampos();
             }
         };
-         
-         radioBtnActivo.addActionListener(radioListener);
-         radioBtnInactivo.addActionListener(radioListener);
+
+        radioBtnActivo.addActionListener(radioListener);
+        radioBtnInactivo.addActionListener(radioListener);
     }
 
-    public void limpiarCampos(){
+    public void limpiarCampos() {
         jtxtCodigo.setText("");
         jtxtNombre.setText("");
         buttonGroup1.clearSelection();
         jBtnGuardar.setEnabled(false);
     }
-    
-    public void validarCampos(){
+
+    public void validarCampos() {
         boolean hayNombre = !jtxtNombre.getText().trim().isEmpty();
         boolean estadoSeleccionado = radioBtnActivo.isSelected() || radioBtnInactivo.isSelected();
-        
+
         jBtnGuardar.setEnabled(hayNombre && estadoSeleccionado);
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -109,6 +107,7 @@ public class Vistamateria extends javax.swing.JInternalFrame {
         jBtnSalir.setText("Salir");
         jBtnSalir.addActionListener(this::jBtnSalirActionPerformed);
 
+        jBtnBuscarMaterias.setIcon(new javax.swing.ImageIcon("C:\\Users\\JuanS\\OneDrive\\Documentos\\GitHub\\Proyecto-Transversal\\src\\iconos\\buscar.png")); // NOI18N
         jBtnBuscarMaterias.setText("Buscar");
         jBtnBuscarMaterias.addActionListener(this::jBtnBuscarMateriasActionPerformed);
 
@@ -198,70 +197,76 @@ public class Vistamateria extends javax.swing.JInternalFrame {
             conexion con = new conexion();
             MateriaData materiaData = new MateriaData(con);
             Materia encontrada = materiaData.buscarMateria(cod);
-            
-            if (encontrada != null){
+
+            if (encontrada != null) {
                 jtxtNombre.setText(encontrada.getNombre());
-                if (encontrada.isEstado()){
+                if (encontrada.isEstado()) {
                     radioBtnActivo.setSelected(true);
                 } else {
                     radioBtnInactivo.setSelected(true);
                 }
-                
+
                 jBtnEliminar.setEnabled(true);
             } else {
                 javax.swing.JOptionPane.showMessageDialog(this, "No se encontro ninguna materia con el codigo " + jtxtCodigo.getText());
                 jBtnEliminar.setEnabled(false);
             }
-        } catch (NumberFormatException ex){
+        } catch (NumberFormatException ex) {
             javax.swing.JOptionPane.showMessageDialog(this, "Por favor, ingrese un codigo valido");
         }
     }//GEN-LAST:event_jBtnBuscarMateriasActionPerformed
 
     private void jBtnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnLimpiarActionPerformed
         limpiarCampos();
+        jBtnEliminar.setEnabled(false);
     }//GEN-LAST:event_jBtnLimpiarActionPerformed
 
     private void jBtnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnGuardarActionPerformed
         try {
+            int codigo = Integer.parseInt(jtxtCodigo.getText().trim());
             String nombre = jtxtNombre.getText().trim();
             boolean activo;
-            
-            if (radioBtnActivo.isSelected()){
+
+            if (radioBtnActivo.isSelected()) {
                 activo = true;
-            } else if (radioBtnInactivo.isSelected()){
+            } else if (radioBtnInactivo.isSelected()) {
                 activo = false;
             } else {
                 javax.swing.JOptionPane.showMessageDialog(this, "Debe seleccionar un estado para la materia");
                 return;
             }
-            
+
             conexion con = new conexion();
             MateriaData materiaData = new MateriaData(con);
-            
-            String cod = jtxtCodigo.getText().trim();
-            
-            if (cod.isEmpty()){
+
+            Materia materiaExiste = materiaData.buscarMateria(codigo);
+
+            if (materiaExiste == null) {
                 Materia nuevaMateria = new Materia();
+                nuevaMateria.setCodigo(codigo);
                 nuevaMateria.setNombre(nombre);
                 nuevaMateria.setEstado(activo);
                 materiaData.guardarMateria(nuevaMateria);
                 javax.swing.JOptionPane.showMessageDialog(this, "Nueva materia guardada exitosamente");
                 limpiarCampos();
+                jBtnEliminar.setEnabled(false);
             } else {
-                int id = Integer.parseInt(cod);
-                Materia materiaActualizada = new Materia(id, nombre, activo);
-                boolean actualizo = materiaData.actualizarMateria(materiaActualizada);
-                
-                if (actualizo){
+                materiaExiste.setCodigo(codigo);
+                materiaExiste.setNombre(nombre);
+                materiaExiste.setEstado(activo);
+                boolean actualizo = materiaData.actualizarMateria(materiaExiste);
+
+                if (actualizo) {
                     javax.swing.JOptionPane.showMessageDialog(this, "Materia actualizada con exito");
                     limpiarCampos();
+                    jBtnEliminar.setEnabled(false);
                 } else {
-                    javax.swing.JOptionPane.showMessageDialog(this, "No se puede actualizar, no existe una materia con el codigo " + id);
+                    javax.swing.JOptionPane.showMessageDialog(this, "No se puede actualizar, no existe una materia con el codigo " + codigo);
                 }
-            }            
+            }
         } catch (NumberFormatException ex) {
             javax.swing.JOptionPane.showMessageDialog(this, "Por favor, ingrese un codigo valido");
-        } catch (Exception ex){
+        } catch (Exception ex) {
             javax.swing.JOptionPane.showMessageDialog(this, ex.getMessage());
         }
     }//GEN-LAST:event_jBtnGuardarActionPerformed
@@ -272,11 +277,11 @@ public class Vistamateria extends javax.swing.JInternalFrame {
             conexion con = new conexion();
             MateriaData materiaData = new MateriaData(con);
             Materia materia = materiaData.buscarMateria(cod);
-            
-            if (materia != null){
+
+            if (materia != null) {
                 int confirmar = javax.swing.JOptionPane.showConfirmDialog(this, "Seguro que desea eliminar " + materia.getNombre() + " de la base de datos?", "Confirmar eliminacion", javax.swing.JOptionPane.YES_NO_CANCEL_OPTION);
-                
-                if (confirmar == javax.swing.JOptionPane.YES_OPTION){
+
+                if (confirmar == javax.swing.JOptionPane.YES_OPTION) {
                     javax.swing.JOptionPane.showMessageDialog(this, "Materia eliminada correctamente");
                     materiaData.borrarMateria(cod);
                     limpiarCampos();
@@ -285,9 +290,9 @@ public class Vistamateria extends javax.swing.JInternalFrame {
             } else {
                 javax.swing.JOptionPane.showMessageDialog(this, "No se encontro la materia a eliminar");
             }
-        } catch (NumberFormatException ex){
+        } catch (NumberFormatException ex) {
             javax.swing.JOptionPane.showMessageDialog(this, "Codigo invalido");
-        } catch (Exception ex){
+        } catch (Exception ex) {
             javax.swing.JOptionPane.showMessageDialog(this, "Se ha producido un error: " + ex.getMessage());
         }
     }//GEN-LAST:event_jBtnEliminarActionPerformed

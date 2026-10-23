@@ -35,7 +35,7 @@ public class Vistanotas extends javax.swing.JInternalFrame {
     }
 
     public void armarCabecera() {
-        modeloTabla.addColumn("ID Materia");
+        modeloTabla.addColumn("Codigo");
         modeloTabla.addColumn("Nombre Materia");
         modeloTabla.addColumn("Nota");
         jTableNotas.setModel(modeloTabla);
@@ -58,7 +58,7 @@ public class Vistanotas extends javax.swing.JInternalFrame {
             int idCursadaEncontrada = -1;
 
             for (Cursada c : cursadaData.listarCursadas()) {
-                if (c.getAlumno().getId() == seleccionado.getId() && c.getMateria().getIdMateria() == m.getIdMateria()) {
+                if (c.getAlumno().getId() == seleccionado.getId() && c.getMateria().getCodigo() == m.getCodigo()) {
                     notaActual = c.getNota();
                     idCursadaEncontrada = c.getIdCursada();
                     break;
@@ -66,7 +66,7 @@ public class Vistanotas extends javax.swing.JInternalFrame {
             }
 
             modeloTabla.addRow(new Object[]{
-                m.getIdMateria(),
+                m.getCodigo(),
                 m.getNombre(),
                 notaActual
             });
@@ -169,7 +169,7 @@ public class Vistanotas extends javax.swing.JInternalFrame {
         if (filaSeleccionada != -1) {
             try {
                 Alumno alumno = (Alumno) jComboBoxAlumnos.getSelectedItem();
-                int idMateria = (Integer) jTableNotas.getValueAt(filaSeleccionada, 0);
+                int codigoMateria = (Integer) jTableNotas.getValueAt(filaSeleccionada, 0);
 
                 double nuevaNota = Double.parseDouble(jTableNotas.getValueAt(filaSeleccionada, 2).toString());
 
@@ -178,7 +178,7 @@ public class Vistanotas extends javax.swing.JInternalFrame {
 
                 int idCursada = -1;
                 for (Cursada c : cursadaData.listarCursadas()) {
-                    if (c.getAlumno().getId() == alumno.getId() && c.getMateria().getIdMateria() == idMateria) {
+                    if (c.getAlumno().getId() == alumno.getId() && c.getMateria().getCodigo() == codigoMateria) {
                         idCursada = c.getIdCursada();
                         break;
                     }
