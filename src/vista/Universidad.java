@@ -36,13 +36,13 @@ public class Universidad {
 
             MateriaData md = new MateriaData(c);
             try {
-                md.guardarMateria(new Materia("Laboratorio", true));
+                md.guardarMateria(new Materia(01, "Laboratorio", true));
             } catch (Exception e) {
                 System.out.println("Aviso: La materia ya podria existir.");
             }
 
             for (Materia m : md.listarMateria()) {
-                System.out.println(m.getIdMateria() + " - " + m.getNombre() + " - " + m.isEstado());
+                System.out.println(m.getIdMateria() + " - " + m.getCodigo() + " - " +m.getNombre() + " - " + m.isEstado());
             }
 
         } catch (Exception ex) {
